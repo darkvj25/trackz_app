@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-800 dark:bg-trakz-dark dark:text-slate-100 font-sans transition-colors duration-200;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Glassmorphism effects */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Smooth tab content switch animation */
+@keyframes tab-slide {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-tab-slide {
+  animation: tab-slide 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom pulsing pin for live map tracking */
+@keyframes map-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 14px rgba(244, 63, 94, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0);
+  }
+}
+
+.map-pulse-pin {
+  animation: map-pulse 2s infinite;
+}
+
+/* 5-Second Galaxy Outer Orbit & Inward Entry Animation */
+@keyframes galaxyOrbitRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  80% {
+    transform: rotate(720deg);
+  }
+  100% {
+    transform: rotate(900deg);
+  }
+}
+
+@keyframes galaxyMotorcycleInward {
+  0% {
+    /* Outside the circular frame of logo */
+    transform: translateY(-165%) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  78% {
+    /* Orbiting outside */
+    transform: translateY(-165%) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  90% {
+    /* Crossing into circle frame */
+    transform: translateY(-50%) scale(0.65) rotate(15deg);
+    opacity: 0.9;
+  }
+  100% {
+    /* Entering center motorcycle logo */
+    transform: translateY(0%) scale(0) rotate(30deg);
+    opacity: 0;
+  }
+}
+
+@keyframes galaxyCenterFlash {
+  0%, 82% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0px transparent);
+  }
+  92% {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 30px #ffb100) drop-shadow(0 0 20px #8b5cf6);
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0px transparent);
+  }
+}
+
+@keyframes galaxyParticlePulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(0.98) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05) rotate(180deg);
+  }
+}
+
+@keyframes galaxyDustRotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.08);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes galaxyContinuousOrbit {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes galaxyBoostOrbit {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(1080deg);
+  }
+}
+
+.animate-galaxy-orbit {
+  animation: galaxyOrbitRotate 5s cubic-bezier(0.35, 0, 0.25, 1) forwards;
+}
+
+.animate-galaxy-continuous-orbit {
+  animation: galaxyContinuousOrbit 9s linear infinite;
+}
+
+.animate-galaxy-boost-orbit {
+  animation: galaxyBoostOrbit 3.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-galaxy-motorcycle {
+  animation: galaxyMotorcycleInward 5s cubic-bezier(0.35, 0, 0.25, 1) forwards;
+}
+
+.animate-galaxy-flash {
+  animation: galaxyCenterFlash 5s ease-out forwards;
+}
+
+.animate-galaxy-ring {
+  animation: galaxyParticlePulse 4s infinite linear;
+}
+
+.animate-galaxy-dust {
+  animation: galaxyDustRotate 20s infinite linear;
+}

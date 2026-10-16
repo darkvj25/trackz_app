@@ -1,0 +1,26 @@
+{
+  "short_name": "Trakz",
+  "name": "Trakz Food & Delivery Customer App",
+  "icons": [
+    {
+      "src": "trackz_logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "pwa-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "pwa-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#f43f5e",
+  "background_color": "#ffffff",
+  "orientation": "portrait"
+}
