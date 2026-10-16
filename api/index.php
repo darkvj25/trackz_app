@@ -180,17 +180,17 @@ try {
     }
 
     // API Health check / ROOT / SEED / RESET
-    elseif ($uri === '/' || $uri === '/index.php' || $uri === '/seed' || $uri === '/reset-database') {
+    elseif ($uri === '/' || $uri === '/index.php' || $uri === '/seed' || $uri === '/seed.php' || $uri === '/reset-database') {
         if ($uri === '/reset-database') {
             clearDatabase();
-        } elseif ($uri === '/seed') {
+        } elseif ($uri === '/seed' || $uri === '/seed.php') {
             seedDatabase(true);
         }
         Response::json([
             'service' => 'Trakz Food Delivery PHP REST API',
             'version' => '1.0.0',
             'status' => 'online',
-            'message' => $uri === '/reset-database' ? 'Database wiped clean.' : ($uri === '/seed' ? 'Database re-seeded.' : 'API operational.'),
+            'message' => $uri === '/reset-database' ? 'Database wiped clean.' : ($uri === '/seed' || $uri === '/seed.php' ? 'Database re-seeded.' : 'API operational.'),
             'timestamp' => date('Y-m-d H:i:s')
         ]);
     } else {

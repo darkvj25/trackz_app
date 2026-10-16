@@ -13,21 +13,25 @@ class Database {
         $user = getenv('DB_USER') ?: 'root';
         $pass = getenv('DB_PASS') ?: '';
 
+        $pdoOptions = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        ];
+
+        // Enable SSL/TLS for cloud database connections like TiDB
+        if ($port == '4000' || strpos($host, 'tidbcloud.com') !== false || getenv('DB_SSL') === 'true') {
+            $pdoOptions[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+        }
+
         try {
-            // First attempt connecting directly with database name in DSN (required for hosted MySQL like InfinityFree)
+            // First attempt connecting directly with database name in DSN (required for hosted MySQL like InfinityFree / TiDB)
             try {
                 $dsn = "mysql:host={$host};port={$port};dbname={$dbName};charset=utf8mb4";
-                $this->pdo = new PDO($dsn, $user, $pass, [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                ]);
+                $this->pdo = new PDO($dsn, $user, $pass, $pdoOptions);
             } catch (PDOException $e) {
                 // If direct db connection failed, try connecting to server root & creating database (local Laragon/XAMPP)
                 $dsn = "mysql:host={$host};port={$port};charset=utf8mb4";
-                $pdo = new PDO($dsn, $user, $pass, [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                ]);
+                $pdo = new PDO($dsn, $user, $pass, $pdoOptions);
                 $pdo->exec("CREATE DATABASE IF NOT EXISTS `{$dbName}` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
                 $pdo->exec("USE `{$dbName}`;");
                 $this->pdo = $pdo;
