@@ -1,12 +1,16 @@
 const getBaseUrl = () => {
-  const envUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost/trackz_app/api';
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL.replace(/\/$/, '');
+  }
+
+  const defaultUrl = 'http://localhost/trackz_app/api';
   if (typeof window !== 'undefined' && window.location && window.location.hostname) {
     const currentHost = window.location.hostname;
     if (currentHost !== 'localhost' && currentHost !== '127.0.0.1') {
-      return envUrl.replace(/localhost|127\.0\.0\.1/g, currentHost);
+      return defaultUrl.replace(/localhost|127\.0\.0\.1/g, currentHost);
     }
   }
-  return envUrl;
+  return defaultUrl;
 };
 
 export const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true';
